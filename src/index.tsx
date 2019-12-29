@@ -2,7 +2,7 @@ import { Renderer } from "@nodegui/react-nodegui";
 import React from "react";
 import App from "./app";
 
-process.title = "My NodeGui App";
+process.title = "LeagueSandbox Client";
 Renderer.render(<App />);
 // This is for hot reloading (this will be stripped off in production by webpack)
 if (module.hot) {
@@ -10,3 +10,4 @@ if (module.hot) {
     Renderer.forceUpdate();
   });
 }
+ 
