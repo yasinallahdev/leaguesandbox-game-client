@@ -1,13 +1,22 @@
 import { Text, View, Button, useEventHandler } from "@nodegui/react-nodegui";
 import { QPushButtonSignals } from "@nodegui/nodegui";
 import React, { useEffect, useState } from "react";
-import open from "open";
 import axios from "axios";
 
 export function StepTwo() {
   const btnHandler = useEventHandler<QPushButtonSignals>(
     {
-      clicked: () => open("https://react.nodegui.org").catch(console.log)
+      clicked: () => {
+        axios.get("https://api-v3.mbta.com/routes/Green-B")
+          .then(response => {
+            const trainData = {
+              srcStation: response.data.data.attributes.direction_destinations[0],
+              terminalStation: response.data.data.attributes.direction_destinations[1]
+            }
+            console.log(trainData);
+            console.table(trainData);
+            setData(trainData);
+          }).catch(console.log)}
     },
     []
   );
