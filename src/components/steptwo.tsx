@@ -30,8 +30,6 @@ export function StepTwo() {
         srcStation: result.data.data.attributes.direction_destinations[0],
         terminalStation: result.data.data.attributes.direction_destinations[1]
       }
-      console.log(trainData);
-      console.table(trainData);
       setData(trainData);
     }
 
@@ -42,6 +40,7 @@ export function StepTwo() {
     <View style={containerStyle}>
       <Text style={textStyle} wordWrap={true}>
         {`
+          <p>Testing API Calls using the MBTA's Routes API to get the standard origin and terminal for trains running on the Green Line's "B" Branch.</p>
           <p>Trains originate at: ${data.srcStation}</p>
           <p>Trains terminate at: ${data.terminalStation}</p>
         `}

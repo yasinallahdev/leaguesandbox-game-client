@@ -4,7 +4,7 @@ import { QIcon } from "@nodegui/nodegui";
 import path from "path";
 import { StepOne } from "./components/stepone";
 import { StepTwo } from "./components/steptwo";
-import nodeguiIcon from "../assets/nodegui.jpg";
+import nodeguiIcon from "../assets/LS-Logo.png";
 
 const minSize = { width: 500, height: 520 };
 const winIcon = new QIcon(path.resolve(__dirname, nodeguiIcon));
@@ -13,11 +13,11 @@ class App extends React.Component {
     return (
       <Window
         windowIcon={winIcon}
-        windowTitle="Hello 👋🏽"
+        windowTitle="LeagueSandbox Client"
         minSize={minSize}
         styleSheet={styleSheet}
       >
-        <View style={containerStyle}>
+        <View id="rootView" style={containerStyle}>
           <Text id="welcome-text">Welcome to NodeGui 🐕</Text>
           <Text id="step-1">1. Play around</Text>
           <StepOne />
@@ -34,6 +34,9 @@ const containerStyle = `
 `;
 
 const styleSheet = `
+  #rootView {
+    background-color: #026188;
+  }
   #welcome-text {
     font-size: 24px;
     padding-top: 20px;
