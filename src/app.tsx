@@ -1,15 +1,15 @@
-import { Text, Window, hot, View } from "@nodegui/react-nodegui";
+import { Text, Image, Window, hot, View } from "@nodegui/react-nodegui";
 import React from "react";
-import { QIcon } from "@nodegui/nodegui";
+import { QIcon, QPixmap } from "@nodegui/nodegui";
 import path from "path";
 import { StepOne } from "./components/stepone";
 import { StepTwo } from "./components/steptwo";
 import nodeguiIcon from "../assets/LS-Logo.png";
 
-const minSize = { width: 500, height: 520 };
+const minSize = { width: 1280, height: 720 };
 const winIcon = new QIcon(path.resolve(__dirname, nodeguiIcon));
-class App extends React.Component {
-  render() {
+
+function App() {
     return (
       <Window
         windowIcon={winIcon}
@@ -18,7 +18,8 @@ class App extends React.Component {
         styleSheet={styleSheet}
       >
         <View id="rootView" style={containerStyle}>
-          <Text id="welcome-text">Welcome to NodeGui 🐕</Text>
+          <Text id="welcome-text"></Text>
+          <Image src={path.resolve(__dirname, nodeguiIcon)} />
           <Text id="step-1">1. Play around</Text>
           <StepOne />
           <Text id="step-2">2. Debug</Text>
@@ -26,7 +27,6 @@ class App extends React.Component {
         </View>
       </Window>
     );
-  }
 }
 
 const containerStyle = `
@@ -35,7 +35,7 @@ const containerStyle = `
 
 const styleSheet = `
   #rootView {
-    background-color: #026188;
+    background-color: white;
   }
   #welcome-text {
     font-size: 24px;
