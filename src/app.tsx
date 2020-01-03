@@ -1,42 +1,70 @@
-import { Text, Image, Window, hot, View } from "@nodegui/react-nodegui";
-import React from "react";
-import { QIcon, QPixmap } from "@nodegui/nodegui";
+import { Renderer, Text, Image, Window, hot, View } from "@nodegui/react-nodegui";
+import React, { useEffect, useRef, useMemo, useState } from "react";
+import { 
+  AspectRatioMode, 
+  QMainWindow, 
+  QIcon } from "@nodegui/nodegui";
 import path from "path";
 import { StepOne } from "./components/stepone";
 import { StepTwo } from "./components/steptwo";
 import nodeguiIcon from "../assets/LS-Logo.png";
 
-const minSize = { width: 1280, height: 720 };
 const winIcon = new QIcon(path.resolve(__dirname, nodeguiIcon));
 
 function App() {
-    return (
-      <Window
-        windowIcon={winIcon}
-        windowTitle="LeagueSandbox Client"
-        minSize={minSize}
-        styleSheet={styleSheet}
-      >
-        <View id="rootView" style={containerStyle}>
-          <Text id="welcome-text"></Text>
-          <Image src={path.resolve(__dirname, nodeguiIcon)} />
-          <Text id="step-1">1. Play around</Text>
-          <StepOne />
-          <Text id="step-2">2. Debug</Text>
-          <StepTwo />
-        </View>
-      </Window>
-    );
+
+  const winRef = useRef<QMainWindow>(null);
+
+  const [fileUrl, setFileUrl] = useState();
+  const [imageSrc, setImageSrc] = useState();
+
+  useEffect(() => {
+    if(winRef.current) {
+      winRef.current.resize(1280, 720);
+      setFileUrl('../assets/LS-Logo.png');
+      setImageSrc(fileUrl);
+    }
+  }, []);
+
+
+
+  return (
+    <Window
+      ref={winRef}
+      windowIcon={winIcon}
+      windowTitle="LeagueSandbox Client"
+      styleSheet={styleSheet}
+    >
+      <View id="rootView" style={containerStyle}>
+        <Text id="welcome-text"></Text>
+        <Image 
+          id="image" 
+          aspectRatioMode={AspectRatioMode.KeepAspectRatio}
+          src={imageSrc} />
+        <Text id="step-1">1. Play around</Text>
+        <StepOne />
+        <Text id="step-2">2. Debug</Text>
+        <StepTwo />
+      </View>
+    </Window>
+  );
 }
 
 const containerStyle = `
-  flex: 1; 
+  flex: 1;
+  justify-content: space-around;
 `;
 
 const styleSheet = `
   #rootView {
     background-color: white;
   }
+
+  #image {
+    flex: 1;
+    qproperty-alignment: 'AlignCenter';
+  }
+
   #welcome-text {
     font-size: 24px;
     padding-top: 20px;

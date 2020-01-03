@@ -7,7 +7,7 @@ export function StepTwo() {
   const btnHandler = useEventHandler<QPushButtonSignals>(
     {
       clicked: () => {
-        axios.get("https://api-v3.mbta.com/routes/Green-B")
+        axios.get("https://api-v3.mbta.com/routes/Green-E")
           .then(response => {
             const trainData = {
               srcStation: response.data.data.attributes.direction_destinations[0],
@@ -25,7 +25,7 @@ export function StepTwo() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get('https://api-v3.mbta.com/routes/Green-B');
+      const result = await axios.get('https://api-v3.mbta.com/routes/Green-E');
       const trainData = {
         srcStation: result.data.data.attributes.direction_destinations[0],
         terminalStation: result.data.data.attributes.direction_destinations[1]
@@ -40,7 +40,7 @@ export function StepTwo() {
     <View style={containerStyle}>
       <Text style={textStyle} wordWrap={true}>
         {`
-          <p>Testing API Calls using the MBTA's Routes API to get the standard origin and terminal for trains running on the Green Line's "B" Branch.</p>
+          <p>Testing API Calls using the MBTA's Routes API to get the standard origin and terminal for trains running on the Green Line's "E" Branch (which is the only branch to run through to Lechmere Station)</p>
           <p>Trains originate at: ${data.srcStation}</p>
           <p>Trains terminate at: ${data.terminalStation}</p>
         `}
